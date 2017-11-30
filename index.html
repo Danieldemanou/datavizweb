@@ -1,0 +1,381 @@
+<style>
+    body{
+        font-family: "Open Sans", Times, serif; /* choose font after */
+        border: 1px solid black;
+    }
+
+    section {
+        width: 100%;
+        height: 100%;
+    }
+
+    .box-text {
+        display: inline-block;
+        padding: 10px;
+        background-color: rgba(0,0,0,0.7);
+        color: white;
+        text-align: center;
+        border-radius: 10px;
+    }
+
+    .title {
+        font-size: 28px;
+        position: relative;
+        left: 35%;
+        top: 300px;
+    }
+    .autors {
+        font-family: "Arial black";
+        font-size: 20px;
+        padding: 5px 15px;
+        color: black;
+        text-align: left;
+    }
+
+    #section1 {
+        background: url(introduction.jpg);
+        background-size: cover;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-repeat: no-repeat;
+
+    }
+
+    #section2 {
+        background-color: white;
+        margin: auto;
+        margin-top: 1%;
+        margin-bottom: 1%;
+        width: 98%;
+        height: 98%;
+        display: flex;
+        border: 2px solid black;
+    }
+
+    #section3 {
+        background-color: white;
+    }
+    #section4 {
+        background-image: url(building.jpg);
+        background-size: cover;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-repeat: no-repeat;
+    }
+    #section5 {
+        background-image: url(conclusion.jpg);
+        background-size: cover;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+        #timeline {
+            width: 20%;
+            background: -webkit-linear-gradient(left, lightblue , white);
+            background: -o-linear-gradient(right, lightblue, white);
+            background: -moz-linear-gradient(right, lightblue, white);
+            background-color: linear-gradient(to right, lightblue , white);
+        }
+
+        #chart {
+            width: 80%;
+        }
+
+        .year{
+            cursor: pointer;
+        }
+
+        .year-tooltip {
+          line-height: 1;
+          font-weight: bold;
+          padding: 12px;
+          background: rgba(255, 0, 255, 0.8);
+          color: #fff;
+          border-radius: 2px;
+          max-width : 250px; /* specify max box width size to create box effect */
+        }
+
+        .year-tooltip.n:after {
+          margin: -1px 0 0 0;
+          top: 100%;
+          left: 0;
+        }
+
+        .column {
+            float: left;
+            width: 30%;
+            padding: 10px;
+        }
+
+        .column img {
+            margin-top: 12px;
+            width: 10%;
+        }
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+</style>
+
+<html>
+    <body>
+        <section id="section1">
+            <h1 class="autors">Daniel Alice Nay</h1>
+            <h1 class="box-text title"> Worldwide refugees displacement from the last decade </h1>
+        </section>
+        <section id="section2">
+            <div id="timeline"></div>
+            <div id="chart" class="background"></div>
+        </section>
+        <section id="section3">
+            <canvas id="refugeesChart"></canvas>
+        </section>
+        <section id="section4">
+            <h1 class="box-text"> Each buildings represent 1000 refugees</br> This is the numbers of refugees whos left syria since 2012 </h1>
+            <div class="row" id = "fo">
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+            </div>
+        </section>
+        <section id="section5">
+            <div>
+                <h1 class="box-text"> Conclusion </h1>
+                <h3 class="box-text"> To fill up later </h3>
+            </div>
+        </section>
+    </body>
+</html>
+
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="http://datamaps.github.io/scripts/datamaps.world.min.js"></script>
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js" charset="utf-8"></script>
+
+<script>
+
+        Chart.defaults.global.animation.duration = 3000;
+
+        var context = document.getElementById('refugeesChart').getContext('2d');
+
+        var config = {
+            type: 'line',
+            data: {
+                labels: ['1999', '2000', '2001', '2002', '2003', '2004', '2005', '2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016'],
+                datasets: [{
+                    label: "Syria",
+                    backgroundColor: 'rgba(255,0,0,0.5)',
+                    borderColor: 'red',
+                    data: [1.2, 1.8, 1.3, 1.7,2, 2.9, 2.3,3,4.3,4,3,4,6.4,7,9,14,15,15.9],
+                    fill: true,
+                }, {
+                    label: "Others",
+                    fill: true,
+                    backgroundColor: 'rgba(0,0,255,0.5)',
+                    borderColor: 'blue',
+                    data: [7, 8, 9, 7, 8, 8.4, 9,8.2,7.9,9.1,10.4,10.2,11.3,13.45,16,18,20,20.9],
+                }]
+            },
+            options: {
+                responsive: true,
+                title:{
+                    display:true,
+                    text:'Impact of Syrian refugees on migrations flow'
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Month'
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Value'
+                        }
+                    }]
+                }
+            }
+        };
+
+        var refugeesChart = new Chart(context,config);
+
+        var tip = d3.tip()
+        .attr('class', 'year-tooltip')
+        .offset([-10, 10])
+        .direction('e')
+        .html(function(d) {
+            return d.description;
+        })
+
+        var data = [
+            {
+                "year" : "1999",
+                "description" : "Description for the year 1999",
+                "displacements" : [
+                {
+                    origin: {
+                        latitude: 50,
+                        longitude: -100.036667,
+                    },
+                    destination: {
+                        latitude: 32.066667,
+                        longitude: 34.783333
+                    }
+                },
+                {
+                    origin: {
+                        latitude: 40,
+                        longitude: -100.036667,
+                    },
+                    destination: {
+                        latitude: 22.066667,
+                        longitude: 34.783333
+                    }
+                }]
+            },
+            {
+                "year" : "2000",
+                "description" : "Description for the year 2000",
+                "displacements" : [
+                {
+                    origin: {
+                        latitude: 34,
+                        longitude: -76.036667,
+                    },
+                    destination: {
+                        latitude: 32.066667,
+                        longitude: 34.783333
+                    }
+                },
+                {
+                    origin: {
+                        latitude: 22,
+                        longitude: -10.036667,
+                    },
+                    destination: {
+                        latitude: 22.066667,
+                        longitude: 50.783333
+                    }
+                }]
+            }
+        ]
+
+        var svgTimeline = d3.select("#timeline").append("svg")
+            .attr("width", "100%")
+            .attr("height", "100%");
+
+        svgTimeline.call(tip);
+
+        var yearsRange = svgTimeline.selectAll( "g" )
+            .data( data )
+            .enter()
+            .append("g")
+            .attr("class", "year")
+            .attr("id", function(d) {
+               return d.year;
+            })
+            .on("click", function(d) {
+
+                worldMap.arc( d.displacements, {strokeWidth: 2, animationSpeed: 2500});
+
+            });
+
+
+            yearsRange
+            .append("rect")
+            .attr( "x", 20)
+            .attr( "y", function(d, i){
+                return i*35 + 10;
+            })
+            .attr( "width", 130)
+            .attr( "height", 30)
+            .attr( "fill", "rgba(0,0,255,0.7)");
+
+            yearsRange
+            .append("text")
+            .attr("x", 60)
+            .attr("y",  function(d, i){
+                return i*35 + 30;
+            })
+            .text( function (d) { return d.year; })
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "20px")
+            .attr("fill", "white")
+            .on('mouseover', tip.show)
+            .on('mouseout', tip.hide);
+
+        var worldMap = new Datamap({
+            scope: 'world',
+            element: document.getElementById('chart'),
+            projection: 'mercator',
+            fills: {
+                defaultFill: 'rgba(23,48,210,0.9)'
+            },
+            geographyConfig: {
+                highlightFillColor: 'red'
+            }
+        });
+
+        var trans = d3.select("#fo").selectAll("img")
+                    .style("opacity","0")
+                    .transition()
+                    .style("opacity","1")
+                    .duration(function(d, i){ return 1000 + 300*i});
+
+</script>
