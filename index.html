@@ -324,7 +324,7 @@
             .attr("width", "100%")
             .attr("height", "100%");
 
-        svgTimeline.call(tip);
+
 
         var yearsRange = svgTimeline.selectAll( "g" )
             .data( data )
@@ -375,6 +375,8 @@
                 highlightFillColor: 'red'
             }
         });
+        
+        svgTimeline.call(tip);
 
         var trans = d3.select("#fo").selectAll("img")
                     .style("opacity","0")
