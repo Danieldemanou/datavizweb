@@ -1,0 +1,4006 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Data visualization</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.9.5/jquery.fullpage.css" />
+
+  <style>
+      body{
+          font-family: "Open Sans", Times, sans-serif;
+      }
+
+      h1{
+        font-size: 2em;
+        color: white;
+        margin:0;
+      }
+
+      h1.introduction , h1.conclusion, h1.home{
+        color: black;
+        margin:0;
+      }
+
+      p {
+        font-size: 1em;
+        text-align: center;
+        color: black;
+        margin: auto;
+      }
+
+      p.introduction , p.conclusion, p.home {
+        max-width: 900px;
+        margin-top: 100px;
+        letter-spacing: 2px;
+      }
+
+      section {
+          width: 100%;
+          height: 100%;
+      }
+
+      .section{
+      text-align:center;
+      }
+
+      .box-text {
+          display: inline-block;
+          padding: 10px;
+          background-color: rgba(0,0,0,0.7);
+          color: white;
+          text-align: center;
+          border-radius: 10px;
+      }
+
+      .title {
+          font-size: 28px;
+          position: relative;
+          text-align: left;
+          left: 0%;
+          top: -10%;
+      }
+      .autors {
+          font-family: "Arial black";
+          font-size: 20px;
+          padding: 5px 15px;
+          color: black;
+          text-align: left;
+      }
+
+      .active-year{
+          fill: rgb(194,0,46);
+      }
+
+      #section1 {
+          overflow-y: hidden;
+          background: url(introduction.jpg);
+          background-size: cover;
+          -webkit-background-size: cover;
+          -moz-background-size: cover;
+          -o-background-size: cover;
+          background-repeat: no-repeat;
+      }
+      #section2 {
+          overflow-y: hidden;
+          background-color: #28303A;
+          background-attachment: fixed;
+          margin: auto;
+          margin-top: 1%;
+          margin-bottom: 1%;
+          width: 98%;
+          height: 98%;
+          display: flex;
+          border: 2px solid black;
+      }
+      #section3 {
+          overflow-y: hidden;
+          background-color: #f3f3f3;
+          overflow: hidden;
+      }
+      #section4 {
+          overflow-y: hidden;
+          /*position: relative;*/
+          /*background-image: url(building.jpg);*/
+          background-size: cover;
+          -webkit-background-size: cover;
+          -moz-background-size: cover;
+          -o-background-size: cover;
+          background-repeat: no-repeat;
+      }
+      #section5 {
+          background-image: url(conclusion.jpg);
+          background-attachment: fixed;
+          background-size: cover;
+          -webkit-background-size: cover;
+          -moz-background-size: cover;
+          -o-background-size: cover;
+          background-repeat: no-repeat;
+      }
+      #section6 {
+          background-color: rgb(170,170,170);
+          background-attachment: fixed;
+          background-size: cover;
+          -webkit-background-size: cover;
+          -moz-background-size: cover;
+          -o-background-size: cover;
+          background-repeat: no-repeat;
+      }
+
+      #timeline {
+          width: 10%;
+          background-color: rgb(40, 48, 58);
+      }
+
+      #chart {
+        width: 80%;
+      }
+
+      .chart-title{
+          color: white;
+          font-size: 1.5em;
+          margin-bottom: 0;
+          margin-top: 10px;
+          text-align: center;
+
+      }
+
+      .year{
+          cursor: pointer;
+      }
+
+      .year-tooltip {
+        line-height: 1;
+        font-weight: bold;
+        padding: 12px;
+        background: rgba(10,10 ,10 , 0.8);
+        color: #fff;
+        border-radius: 2px;
+        border: 3px solid rgb(194,0,46);
+        max-width : 250px;
+      }
+
+      .year-tooltip.n:after {
+        margin: -1px 0 0 0;
+        top: 100%;
+        left: 0;
+      }
+
+      .column {
+          float: left;
+          width: 20%;
+          padding: 10px;
+      }
+
+      .column img {
+          margin-top: 12px;
+          width: 10%;
+      }
+      .row:after {
+          content: "";
+          display: table;
+          clear: both;
+      }
+
+      .chartsyria {
+        width: 60%;
+        margin: 15px auto;
+      }
+  </style>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+  <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <script src="https://d3js.org/topojson.v1.min.js"></script>
+  <script src="https://datamaps.github.io/scripts/datamaps.world.min.js"></script>
+  <script src="https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js" charset="utf-8"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.9.5/jquery.fullpage.min.js"></script>
+
+</head>
+<body>
+
+<div id="fullpage">
+  <div class="section" id="section1">
+    <div class="intro">
+          <!-- <h1 class="autors">Daniel Alice Nay</h1> -->
+          <h1 class="box-text title"> THE START OF ONE OF THE BIGGEST CRISIS</h1>
+    </div>
+  </div>
+  <div class="section">
+        <h1 class="introduction"> Introduction </h1>
+        <p class="introduction">
+          This work aims at showing the explosion of refugees from 1999 to 2016 which increased by 62% with a specific focus on the Syrian refugees crisis. The Syrian refugees crisis is by far the biggest crisis the world has ever experienced in the last decade with more than 5 millions Syrian refugees since the beginning of the crisis . </br> You will also see a map that helps you visualize the movement of the refugees from 1999 to 2016 and the asylum refugees crises associated. Then, we will focus on the Syrian crisis to make you realize the humanitarian disaster behind.
+        </p>
+  </div>
+  <div class="section">
+    <div id="section2">
+      <div id="timeline"></div>
+      <div id="chart">
+          <h1 class="chart-title"> REFUGEES MIGRATION FROM 1999 TO THE BIG CRISIS</h1>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <h2>THE SAD REALITY </h2>
+    <p style="margin-left: 60px; margin-right: 60px;"> The map you saw above shows the biggest immigrations of asylum seekers from 1999 to 2016. </br> Every line that you saw hide behind it a disaster that has led these refugees to move around the world. 2015 has seen an incredible explosion of the number of asylum seekers because of the intensification of the Syrian War. Below you will see more explanations about this. </p>
+    </br>
+
+    <video width="800" height="450" controls data-autoplay>
+        <source src="./video.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="section" id="section0">
+    <div class="chartsyria">
+        <canvas id="refugeesChart"></canvas>
+    </div>
+    <div>
+        <p class="" >The Syrian Civil War started in 2011, but it is in 2014 that the first wave of the Syrian refugees began.  </br> In 2015, as the war intensifies with the strong repression of the Assad’s regime and the takeover of the big cities by ISIS, </br> the Syrian refugees crisis reaches its peak.
+        </p>
+    </div>
+  </div>
+  <div class="section">
+      <h1 class="home"> NO HOME ANYMORE</h1>
+      <p class="home"> Each of these broken buildings represents 10 000 Syrian refugees that have escaped the War from 2011 to 2016. </br> Imagine that each of these buildings are filled with men, women, children and families. </br>More than 5 millions have fled.</p>
+
+      <div class="row" id = "fo">
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+              <div class="column">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+                <img src="building.svg">
+              </div>
+      </div>
+  </div>
+  <div class="section" id="section5">
+      <h1 class="conclusion"> THE HUMANS BEHIND </h1>
+      <p class="conclusion"> Children. Women. Men. Those are the people that have escaped from the Syrian war horror. </br>
+      Each of them has a story, a name, a life, a love story, an age, and everything that makes a LIFE.
+      69% of those refugees are Men, 18% are Children and 13% are Women.
+      </p>
+      </br>
+      <img src='population.svg' style="width:600px;"></img>
+  </div>
+  <div class="section" id="section6" style="backgroundColor:rgba(255,0,0,0)">
+
+      <h1 class="conclusion"> Refugees struggle with language barriers, finding work,</br>and meeting people in their temporary new homes. </h1>
+
+      <p class="conclusion">Because of languages barriers, many struggle to find employment outside of the refugee community itself.  As expected, children develop language skills quickly. Yet with adults the barriers of language easily become barriers of understanding.
+Therefore language is the primary obstacle which divides the refugee from the rest of its citizens.
+Given the divide which language and politics can pose, images and stories have become the solution to bridge the gap between people.  Photos, such as that of Omran Daqneesh, the Syrian boy who became the face of the refugee crisis, remind us that refugees are people not statistics.
+      </p>
+      <div class="chartsyria">
+          <img src='./omar.jpg' style="width:300px;"></img>
+      </div>
+  </div>
+  <div class="section">
+    <h1 class="conclusion"> Interview with Yazan </h1>
+
+    <div style="float: right; margin-right: 50px;"><img src="yazan.png" width="400"></div>
+    <div style="clear: left;margin-left: 400px;">
+      <h3> Name : Yazan </h3>
+      <h3> Age : 35 </h3>
+      <h3> Nationality : Syrian </h3>
+      <h3> Profession : Poet and journalist </h3>
+      <h3> Refugee since 2011 </h3>
+    </div>
+    <div style="margin-left:100px; margin-right:100px">
+      <p >While still in Syria, Yazan was called for obligatory military service but left for Jordan, unwilling to work for the Assad regime </br>
+        Yazan then found himself in the Zaatari refugee camp across the Jordanian border.
+        After one day in the camp, Yazan left due to what he describes as terrible living conditions and a lack of communication with the outside world. Because he was requested for military service, Yazan was unable to go home, and he began living close to the Jordanian border for several months.
+      </p>
+      <p>
+        Yazan came to France in 2014.  Again, he was lucky.  Yazan’s story also highlights the difference which connections and assets can make in refugee status.  Like others who made the perilous journey to Europe via sea and who lost many loved ones along the way.
+        He did not choose France; however, he is happy and grateful to be there.  The main problem, he says, is not being able to find a job.  He writes articles where he can, but it only brings in around one hundred euros per month.  The language barrier remains a problem.
+        While he is actively seeking work, he is entirely starting from scratch in France.  In Syria, he was a journalist.  He was also studying law in Damascus.  He wants to finish his studies, but there are obstacles.  For one, in his mid-thirties, he is too old for the French bursary system, which provides educational funds to refugees.  In the future, he would like to study politics
+      </p>
+    </div>
+  </div>
+  <div class="section">
+    <h2>Sources</h2>
+    <ul style="list-style: none;">
+      <li> Kaggle Data set , UNHCR Refugee Data
+        <a target="_blank" href="https://www.kaggle.com/unitednations/refugee-data"> link</a>
+      </li>
+      <br>
+      <li> Agence des Nations Unies pour les réfugiés, ressources et publications, rapports globaux de 2001 à 2016
+        <a target="_blank" href="http://www.unhcr.org/fr-fr/ressources-et-publications.html"> link</a>
+      </li>
+      <br>
+      <li> Réfugiés et droit d’asile dans le monde, les réfugiés d’aujourd’hui, Dossier de la Documentation Française, 2007
+        <a target="_blank" href="http://www.ladocumentationfrancaise.fr/dossiers/d000109-refugies-et-droit-d-asile-dans-le-monde/les-refugies-aujourd-hui"> link</a>
+      </li>
+      <br>
+      <li> Interview de Yazan, réfugié syrien par Alexa Boncimino, Merion West, 2017
+        <a target="_blank" href="http://merionwest.com/2017/06/28/an-interview-with-a-refugee/"> link</a>
+      </li>
+
+    </ul>
+  </div>
+
+</div>
+
+</body>
+</html>
+
+<script>
+
+        //Initialize fullpage
+
+        $(document).ready(function() {
+          $('#fullpage').fullpage({
+            // anchors: ['firstPage', 'secondPage', '3rdPage'],
+            sectionsColor: ['#DEDEDE', 'white', 'white','white','#AAA'],
+            navigation: true,
+            navigationPosition: 'right'
+          });
+        });
+
+        Chart.defaults.global.animation.duration = 3000;
+
+        var context = document.getElementById('refugeesChart').getContext('2d');
+
+        var labels = ['2014 jan-fev', '2014 mar-apr', '2014 may-jun', '2014 jul-aug', '2014 step-oct', '2014 nov-dec', '2015 jan-fev', '2015 mar-apr', '2015 may-jun', '2015 jul-aug', '2015 sept-oct', '2015 nov-dec', '2016 jan-fev', '2016 mar-apr', '2016 may-jun', '2016 jul-aug', '2016 sept-oct', '2016 nov-dec'];
+
+        var syrianRefugeesData = [14246, 14412, 19082, 28423,38755,33811, 21866,23221,35837,82651,127468,91470,78155,70423,61347,58593,37864,14878];
+
+        var totalRefugeesData = [97346, 102373, 121908, 154266, 183527, 175353, 167886,167356,216832,327637,242864,334612,258167,264594,272415,300510,256932,181857];
+
+        var config = {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "Syria",
+                    backgroundColor: 'rgba(255,0,0,0.5)',
+                    borderColor: 'red',
+                    data: syrianRefugeesData,
+                    fill: true,
+                }, {
+                    label: "Total",
+                    fill: true,
+                    backgroundColor: 'rgba(0,0,255,0.5)',
+                    borderColor: 'blue',
+                    data: totalRefugeesData,
+                    hidden: true,
+                }]
+            },
+            options: {
+                responsive: true,
+                title:{
+                    display:true,
+                    text:'THE DRAMATIC INCREASE OF SYRIAN REFUGEES AND ITS ROOTS'
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Month'
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Value'
+                        }
+                    }]
+                }
+            }
+        };
+
+        var refugeesChart = new Chart(context,config);
+
+        var data = [
+            {
+                "year" : "1999",
+                "description" : " Gulf War (Afghanistan, Iraq, Iran) </br> Kosovo War",
+                "displacements" : [
+                  {
+                 origin: { //Iran
+
+                     latitude: 32.42791,
+                     longitude: 53.68805
+                 },
+                 destination: { //Austria
+                     latitude: 47.51623,
+                     longitude: 14.55007
+                 }
+                 },
+  {
+                 origin: { //Iraq
+
+                     latitude: 33.22319,
+                     longitude: 43.67929
+                 },
+                 destination: { //Austria
+                     latitude: 47.51623,
+                     longitude: 14.55007
+                 }
+                 },
+
+  {
+                 origin: { //Serbia
+
+                     latitude: 44.01652,
+                     longitude: 21.00586
+                 },
+                 destination: { //Austria
+                     latitude: 47.51623,
+                     longitude: 14.55007
+                 }
+                 },
+  {
+                 origin: { //Sierra Leona
+
+                     latitude: 8.46056,
+                     longitude: -11.77989
+                 },
+                 destination: { //Austria
+                     latitude: 47.51623,
+                     longitude: 14.55007
+                 }
+                 },
+  {
+                 origin: { //Afghanistan
+
+                     latitude: 33.93911,
+                     longitude: 67.70995
+                 },
+                 destination: { //Belgium
+                     latitude: 50.50389,
+                     longitude: 4.46994
+                 }
+                 },
+
+  {
+                 origin: { //Iran
+
+                     latitude: 32.42791,
+                     longitude: 53.68805
+                 },
+                 destination: { //Belgium
+                     latitude: 50.50389,
+                     longitude: 4.46994
+                 }
+                 },
+  {
+                 origin: { //Iraq
+
+                     latitude: 33.22319,
+                     longitude: 43.67929
+                 },
+                 destination: { //Belgium
+                     latitude: 50.50389,
+                     longitude: 4.46994
+                 }
+                 },
+  {
+                 origin: { //Serbia
+
+                     latitude: 44.01652 ,
+                     longitude: 21.00586
+                 },
+                 destination: { //Belgium
+                     latitude: 50.50389,
+                     longitude: 4.46994
+                 }
+                 },
+  {
+                 origin: { //Afghan
+
+                     latitude: 33.93911,
+                     longitude: 67.70995
+                 },
+                 destination: { //Canada
+                     latitude: 56.13037,
+                     longitude: -106.34677
+                 }
+                 },
+  {
+                 origin: { //Serbia
+
+                     latitude: 44.01652,
+                     longitude: 21.00586
+                 },
+                 destination: { //Canada
+                     latitude: 56.13037,
+                     longitude: -106.34677
+                 }
+                 },
+
+
+
+  {
+                 origin: { //Iraq
+
+                     latitude: 33.22319,
+                     longitude: 43.67929
+                 },
+                 destination: { // Denmark
+                     latitude: 56.26392,
+                     longitude: 9.50179
+                 }
+                 },
+  {
+                 origin: { //Serbia
+
+                     latitude: 44.01652,
+                     longitude: 21.00586
+                 },
+                 destination: { // Denmark
+                     latitude: 56.26392,
+                     longitude: 9.50179
+                 }
+                 },
+  {
+                 origin: { //Serbia
+
+                     latitude: 44.01652,
+                     longitude: 21.00586
+                 },
+                 destination: { //Finland
+                     latitude: 61.92411,
+                     longitude: 25.74815
+                 }
+                 },
+
+  {
+
+                 origin: { //Turkey
+
+                     latitude: 38.96375,
+                     longitude: 35.24332
+                 },
+                 destination: { //France
+                     latitude: 46.22764,
+                     longitude: 2.21375
+                 }
+                 },
+  {
+
+                 origin: { //Serbia
+
+                     latitude: 44.01652,
+                     longitude: 21.00586
+                 },
+                 destination: { //France
+                     latitude: 46.22764,
+                     longitude: 2.21375
+                 }
+                 },
+  {
+
+                 origin: { //Afgh
+
+                     latitude: 33.93911,
+                     longitude: 67.70995
+                 },
+                 destination: { //Germany
+                     latitude: 51.16569,
+                     longitude: 10.45153
+                 }
+                 },
+  {
+
+                 origin: { //Iran
+
+                     latitude: 32.42791,
+                     longitude: 53.68805
+                 },
+                 destination: { //Germany
+                     latitude: 51.16569,
+                     longitude: 10.45153
+                 }
+                 },
+  {
+
+                 origin: { //Iraq
+
+                     latitude: 33.22319,
+                     longitude: 43.67929
+                 },
+                 destination: { //Germany
+                     latitude: 51.16569,
+                     longitude: 10.45153
+                 }
+                 },
+  {
+
+                 origin: { //Serbia
+
+                     latitude: 44.01652,
+                     longitude: 21.00586
+                 },
+                 destination: { //Germany
+                     latitude: 51.16569,
+                     longitude: 10.45153
+                 }
+                 },
+
+
+  {
+
+                 origin: { //Nigeria
+
+                     latitude: 9.08200,
+                     longitude: 8.67528
+                 },
+                 destination: { //Ireland
+                     latitude: 53.428665,
+                     longitude: -8.3320801
+                 }
+                 },
+
+  {
+
+                 origin: { //Serbia
+
+                     latitude: 44.01652,
+                     longitude: 21.00586
+                 },
+                 destination: { //Netherlands
+                     latitude: 52.2129919,
+                     longitude: 5.2793703
+                 }
+                 },
+  {
+
+                 origin: { //Iraq
+
+                     latitude: 33.22319,
+                     longitude: 43.67929
+                 },
+                 destination: { //Netherlands
+                     latitude: 52.2129919,
+                     longitude: 5.2793703
+                 }
+                 },
+  {
+
+                 origin: { //Serbia
+
+                     latitude: 44.01652,
+                     longitude: 21.00586
+                 },
+                 destination: { //Sweden
+                     latitude: 60.12816,
+                     longitude: 18.64350
+                 }
+                 },
+  {
+
+                 origin: { //Iraq
+
+                     latitude: 33.22319,
+                     longitude: 43.67929
+                 },
+                 destination: { //Sweden
+                     latitude: 60.12816,
+                     longitude: 18.64350
+                 }
+
+                 },
+  {
+
+                 origin: { //Serbia
+
+                     latitude: 44.01652,
+                     longitude: 21.00586
+                 },
+                 destination: { //Switzerland
+                     latitude: 46.81819,
+                     longitude: 8.22751
+                 }
+                 },
+  {
+
+                 origin: { //Iraq
+
+                     latitude: 33.22319,
+                     longitude: 43.67929
+                 },
+                 destination: { //Switzerland
+                     latitude: 46.81819,
+                     longitude: 8.22751
+                 }
+                 },
+  {
+
+                 origin: { //Iran
+
+                     latitude: 32.42791,
+                     longitude: 53.68805
+                 },
+                 destination: { //Turkey
+                     latitude: 38.96375,
+                     longitude: 35.24332
+                 }
+                 },
+  {
+
+                 origin: { //Serbia
+
+                     latitude: 44.01652,
+                     longitude: 21.00586
+                 },
+                 destination: { //UK
+                     latitude: 55.37805,
+                     longitude: -3.43597
+                 }
+                 },
+  {
+
+                 origin: { //Iraq
+
+                     latitude: 33.22319,
+                     longitude: 43.67929
+                 },
+                 destination: { //UK
+                     latitude: 55.37805,
+                     longitude: -3.43597
+                 }
+                 },
+  {
+
+                 origin: { //Afghan
+
+                     latitude: 33.93911,
+                     longitude: 67.70995
+                 },
+                 destination: { //UK
+                     latitude: 55.37805,
+                     longitude: -3.43597
+                 }
+                 }
+]
+            },
+            {
+                "year" : "2000",
+                "description" : "Gulf War (Afghanistan, Iraq, Iran) </br>Democratic Republic of Congo crisis",
+                "displacements" : [
+                  {
+  origin: { //Iraq
+  latitude: 33.22319,
+  longitude: 43.67929
+                 },
+              destination: {//Germany
+               latitude: 51.1642292,
+               longitude: 10.4541194
+              }
+  },
+  {
+  origin: { //Serbia
+  latitude: 44.01652,
+  longitude: 21.00586
+                 },
+              destination: {//Germany
+               latitude: 51.1642292,
+               longitude: 10.4541194
+              }
+  },
+  {
+  origin: { //Turkey
+  latitude: 38.96375,
+  longitude: 35.24332
+                 },
+              destination: {//Germany
+               latitude: 51.1642292,
+               longitude: 10.4541194
+              }
+  },
+  {
+  origin: { //Iran
+  latitude: 32.42791,
+  longitude: 53.68805
+                 },
+              destination: {//Germany
+               latitude: 51.1642292,
+               longitude: 10.4541194
+              }
+  },
+  {
+  origin: { //Afghanistan
+  latitude: 33.93911,
+  longitude: 67.70995
+                 },
+              destination: {//Germany
+               latitude: 51.1642292,
+               longitude: 10.4541194
+              }
+  },
+  {
+  origin: { //Serbia
+  latitude: 44.01652,
+  longitude: 21.00586
+                 },
+              destination: {//UK
+               latitude: 55.3617609,
+               longitude: -3.4433238
+              }
+  },
+  {
+  origin: { //Iraq
+  latitude: 33.22319,
+  longitude: 43.67929
+                 },
+              destination: {//UK
+               latitude: 55.3617609,
+               longitude: -3.4433238
+              }
+  },
+  {
+  origin: { //Iran
+  latitude: 32.42791,
+  longitude: 53.68805
+                 },
+              destination: {//UK
+               latitude: 55.3617609,
+               longitude: -3.4433238
+              }
+  },
+  {
+  origin: { //SriLanka
+  latitude: 7.87305,
+  longitude: 80.77180
+                 },
+              destination: {//UK
+               latitude: 55.3617609,
+               longitude: -3.4433238
+              }
+  },
+  {
+  origin: { //Afghanistan
+  latitude: 33.93911,
+  longitude: 67.70995
+                 },
+              destination: {//UK
+               latitude: 55.3617609,
+               longitude: -3.4433238
+              }
+  },
+  {
+  origin: { //Somalia
+  latitude: 5.15215,
+  longitude: 46.19962
+                 },
+              destination: {//UK
+               latitude: 55.3617609,
+               longitude: -3.4433238
+              }
+  },
+  {
+  origin: { //Russia
+  latitude: 61.52401,
+  longitude: 105.31876
+                 },
+              destination: {//UK
+               latitude: 55.3617609,
+               longitude: -3.4433238
+              }
+  },
+  {
+  origin: { //China
+  latitude: 35.86166,
+  longitude: 104.19540
+                 },
+              destination: {//UK
+               latitude: 55.3617609,
+               longitude: -3.4433238
+              }
+  },
+  {
+  origin: { //China
+  latitude: 35.86166,
+  longitude: 104.19540
+                 },
+              destination: {//USA
+               latitude: 37.6,
+               longitude: -95.665
+              }
+  },
+  {
+  origin: { //Haiti
+  latitude: 18.97119,
+  longitude: -72.28521
+                 },
+              destination: {//USA
+               latitude: 37.6,
+               longitude: -95.665
+              }
+  },
+  {
+  origin: { //Mexico
+  latitude: 23.63450,
+  longitude: -102.55278
+                 },
+              destination: {//USA
+               latitude: 37.6,
+               longitude: -95.665
+              }
+  },
+  {
+  origin: { //Iran
+  latitude: 32.42791,
+  longitude: 53.68805
+                 },
+              destination: {//Slovenia
+               latitude: 46.1491664,
+               longitude: 14.9860106
+              }
+  },
+
+  {
+  origin: { //Afghan
+  latitude: 33.93911,
+  longitude: 67.70995
+                 },
+              destination: {//Netherlands
+               latitude: 52.2129919,
+               longitude: 5.2793703
+              }
+  },
+  {
+  origin: { //Serbia
+  latitude: 44.01652 ,
+  longitude: 21.00586
+                 },
+              destination: {//Netherlands
+               latitude: 52.2129919,
+               longitude: 5.2793703
+              }
+  },
+  {
+  origin: { //China
+  latitude: 35.86166,
+  longitude: 104.19540
+                 },
+              destination: {//France
+               latitude: 46.71109,
+               longitude: 1.7191036
+              }
+  },
+  {
+  origin: { //Congo
+  latitude: -0.22802,
+  longitude: 15.82766
+                 },
+              destination: {//France
+               latitude: 46.71109,
+               longitude: 1.7191036
+              }
+  },
+  {
+  origin: { //Turkey
+  latitude: 38.96375,
+  longitude: 35.24332
+                 },
+              destination: {//France
+               latitude: 46.71109,
+               longitude: 1.7191036
+              }
+  },
+  {
+  origin: { //Iraq
+  latitude: 33.22319,
+  longitude: 43.67929
+                 },
+              destination: {//Sweden
+               latitude: 62.1983366,
+               longitude: 17.5671981
+              }
+  },
+  {
+  origin: { //Bosnia
+  latitude: 43.91589,
+  longitude: 17.67908
+                 },
+              destination: {//Sweden
+               latitude: 62.1983366,
+               longitude: 17.5671981
+              }
+  },
+  {
+  origin: { //Serbia
+  latitude: 44.01652,
+  longitude: 21.00586
+                 },
+              destination: {//Belgium
+               latitude: 50.5010789,
+               longitude: 4.4764595
+              }
+  },
+
+  {
+  origin: { //Russia
+  latitude: 61.52401,
+  longitude: 105.31876
+                 },
+              destination: {//Belgium
+               latitude: 50.5010789,
+               longitude: 4.4764595
+              }
+  },
+  {
+  origin: { //Afghan
+  latitude: 33.93911,
+  longitude: 67.70995
+                 },
+              destination: {//Austria
+               latitude: 47.6964719,
+               longitude: 13.3457347
+              }
+  },
+
+  {
+  origin: { //Serbia
+    latitude: 44.01652,
+  longitude: 21.00586
+                 },
+              destination: {//Norway
+               latitude: 64.5783089,
+               longitude: 17.888237
+              }
+  },
+
+  {
+  origin: { //Iran
+  latitude: 32.42791,
+  longitude: 53.68805
+                 },
+              destination: {//Turkey
+               latitude: 38.96375,
+               longitude: 35.24332
+              }
+  },
+  {
+  origin: { //Serbia
+  latitude: 44.01652,
+  longitude: 21.00586
+                 },
+              destination: {//Switzerland
+               latitude: 46.8131873,
+               longitude: 8.22421
+              }
+  }
+]
+            },
+            {
+                "year" : "2001",
+                "description" : "Gulf War (Afghanistan, Iraq, Iran)</br>",
+                "displacements" : [
+                  {
+  origin: { //Iraq
+  latitude: 33.22319,
+  longitude: 43.67929
+                 },
+              destination: {//Germany
+               latitude: 51.1642292,
+               longitude: 10.4541194
+              }
+  },
+  {
+  origin: { //Serbia
+  latitude: 44.01652,
+  longitude: 21.00586
+                 },
+              destination: {//Germany
+               latitude: 51.1642292,
+               longitude: 10.4541194
+              }
+  },
+  {
+  origin: { //Turkey
+  latitude: 38.96375,
+  longitude: 35.24332
+                 },
+              destination: {//Germany
+               latitude: 51.1642292,
+               longitude: 10.4541194
+              }
+  },
+  {
+  origin: { //Iran
+  latitude: 32.42791,
+  longitude: 53.68805
+                 },
+              destination: {//Germany
+               latitude: 51.1642292,
+               longitude: 10.4541194
+              }
+  },
+  {
+  origin: { //Afghanistan
+  latitude: 33.93911,
+  longitude: 67.70995
+                 },
+              destination: {//Germany
+               latitude: 51.1642292,
+               longitude: 10.4541194
+              }
+  },
+  {
+  origin: { //Serbia
+  latitude: 44.01652,
+  longitude: 21.00586
+                 },
+              destination: {//UK
+               latitude: 55.3617609,
+               longitude: -3.4433238
+              }
+  },
+  {
+  origin: { //Iraq
+  latitude: 33.22319,
+  longitude: 43.67929
+                 },
+              destination: {//UK
+               latitude: 55.3617609,
+               longitude: -3.4433238
+              }
+  },
+  {
+  origin: { //Iran
+  latitude: 32.42791,
+  longitude: 53.68805
+                 },
+              destination: {//UK
+               latitude: 55.3617609,
+               longitude: -3.4433238
+              }
+  },
+  {
+  origin: { //SriLanka
+  latitude: 7.87305,
+  longitude: 80.77180
+                 },
+              destination: {//UK
+               latitude: 55.3617609,
+               longitude: -3.4433238
+              }
+  },
+  {
+  origin: { //Afghanistan
+  latitude: 33.93911,
+  longitude: 67.70995
+                 },
+              destination: {//UK
+               latitude: 55.3617609,
+               longitude: -3.4433238
+              }
+  },
+  {
+  origin: { //Somalia
+  latitude: 5.15215,
+  longitude: 46.19962
+                 },
+              destination: {//UK
+               latitude: 55.3617609,
+               longitude: -3.4433238
+              }
+  },
+  {
+  origin: { //Russia
+  latitude: 61.52401,
+  longitude: 105.31876
+                 },
+              destination: {//UK
+               latitude: 55.3617609,
+               longitude: -3.4433238
+              }
+  },
+  {
+  origin: { //China
+  latitude: 35.86166,
+  longitude: 104.19540
+                 },
+              destination: {//UK
+               latitude: 55.3617609,
+               longitude: -3.4433238
+              }
+  },
+  {
+  origin: { //China
+  latitude: 35.86166,
+  longitude: 104.19540
+                 },
+              destination: {//USA
+               latitude: 37.6,
+               longitude: -95.665
+              }
+  },
+  {
+  origin: { //Haiti
+  latitude: 18.97119,
+  longitude: -72.28521
+                 },
+              destination: {//USA
+               latitude: 37.6,
+               longitude: -95.665
+              }
+  },
+  {
+  origin: { //Mexico
+  latitude: 23.63450,
+  longitude: -102.55278
+                 },
+              destination: {//USA
+               latitude: 37.6,
+               longitude: -95.665
+              }
+  },
+  {
+  origin: { //Iran
+  latitude: 32.42791,
+  longitude: 53.68805
+                 },
+              destination: {//Slovenia
+               latitude: 46.1491664,
+               longitude: 14.9860106
+              }
+  },
+
+  {
+  origin: { //Afghan
+  latitude: 33.93911,
+  longitude: 67.70995
+                 },
+              destination: {//Netherlands
+               latitude: 52.2129919,
+               longitude: 5.2793703
+              }
+  },
+  {
+  origin: { //Serbia
+  latitude: 44.01652 ,
+  longitude: 21.00586
+                 },
+              destination: {//Netherlands
+               latitude: 52.2129919,
+               longitude: 5.2793703
+              }
+  },
+  {
+  origin: { //China
+  latitude: 35.86166,
+  longitude: 104.19540
+                 },
+              destination: {//France
+               latitude: 46.71109,
+               longitude: 1.7191036
+              }
+  },
+  {
+  origin: { //Congo
+  latitude: -0.22802,
+  longitude: 15.82766
+                 },
+              destination: {//France
+               latitude: 46.71109,
+               longitude: 1.7191036
+              }
+  },
+  {
+  origin: { //Turkey
+  latitude: 38.96375,
+  longitude: 35.24332
+                 },
+              destination: {//France
+               latitude: 46.71109,
+               longitude: 1.7191036
+              }
+  },
+  {
+  origin: { //Iraq
+  latitude: 33.22319,
+  longitude: 43.67929
+                 },
+              destination: {//Sweden
+               latitude: 62.1983366,
+               longitude: 17.5671981
+              }
+  },
+  {
+  origin: { //Bosnia
+  latitude: 43.91589,
+  longitude: 17.67908
+                 },
+              destination: {//Sweden
+               latitude: 62.1983366,
+               longitude: 17.5671981
+              }
+  },
+  {
+  origin: { //Serbia
+  latitude: 44.01652,
+  longitude: 21.00586
+                 },
+              destination: {//Belgium
+               latitude: 50.5010789,
+               longitude: 4.4764595
+              }
+  },
+
+  {
+  origin: { //Russia
+  latitude: 61.52401,
+  longitude: 105.31876
+                 },
+              destination: {//Belgium
+               latitude: 50.5010789,
+               longitude: 4.4764595
+              }
+  },
+  {
+  origin: { //Afghan
+  latitude: 33.93911,
+  longitude: 67.70995
+                 },
+              destination: {//Austria
+               latitude: 47.6964719,
+               longitude: 13.3457347
+              }
+  },
+
+  {
+  origin: { //Serbia
+    latitude: 44.01652,
+  longitude: 21.00586
+                 },
+              destination: {//Norway
+               latitude: 64.5783089,
+               longitude: 17.888237
+              }
+  },
+
+  {
+  origin: { //Iran
+  latitude: 32.42791,
+  longitude: 53.68805
+                 },
+              destination: {//Turkey
+               latitude: 38.96375,
+               longitude: 35.24332
+              }
+  },
+  {
+  origin: { //Serbia
+  latitude: 44.01652,
+  longitude: 21.00586
+                 },
+              destination: {//Switzerland
+               latitude: 46.8131873,
+               longitude: 8.22421
+              }
+  }
+]
+            },
+            {
+                "year" : "2002",
+                "description" : "Gulf War (Afghanistan, Iraq, Iran)</br>Democratic Republic of Congo crisis",
+                "displacements" : [
+
+                    {
+                    origin: { //Iraq
+                    latitude: 33.22319,
+                    longitude: 43.67929
+                    },
+                    destination: {//UK
+                    latitude: 55.3617609,
+                    longitude: -3.4433238
+                    }
+                    },
+                    {
+                    origin: { //Somalia
+                    latitude: 5.15215,
+                    longitude: 46.19962
+                    },
+                    destination: {//UK
+                    latitude: 55.3617609,
+                    longitude: -3.4433238
+                    }
+                    },
+                    {
+                    origin: { //Zambia
+                    latitude: -13.1403507,
+                    longitude: 27.8493049
+                    },
+                    destination: {//UK
+                    latitude: 55.3617609,
+                    longitude: -3.4433238
+                    }
+                    },
+                    {
+                    origin: { //Afghan
+                    latitude: 33.93911,
+                    longitude: 67.70995
+                    },
+                    destination: {//UK
+                    latitude: 55.3617609,
+                    longitude: -3.4433238
+                    }
+                    },
+                    {
+                    origin: { //Pakistan
+                    latitude: 30.37532,
+                    longitude: 69.34512
+                    },
+                    destination: {//UK
+                    latitude: 55.3617609,
+                    longitude: -3.4433238
+                    }
+                    },
+                    {
+                    origin: { //China
+                    latitude: 35.86166,
+                    longitude: 104.19540
+                    },
+                    destination: {//UK
+                    latitude: 55.3617609,
+                    longitude: -3.4433238
+                    }
+                    },
+                    {
+                    origin: { //Sri Lanka
+                    latitude: 7.87305,
+                    longitude: 80.77180
+                    },
+                    destination: {//UK
+                    latitude: 55.3617609,
+                    longitude: -3.4433238
+                    }
+                    },
+                    {
+                    origin: { //Iran
+                    latitude: 32.4279,
+                    longitude: 53.68805
+                    },
+                    destination: {//UK
+                    latitude: 55.3617609,
+                    longitude: -3.4433238
+                    }
+                    },
+                    {
+                    origin: { //Serbia
+                    latitude: 44.01652,
+                    longitude: 21.00586
+                    },
+                    destination: {//UK
+                    latitude: 55.3617609,
+                    longitude: -3.4433238
+                    }
+                    },
+                    {
+                    origin: { //Iraq
+                    latitude: 33.22319,
+                    longitude: 43.67929
+                    },
+                    destination: {//Germany
+                    latitude: 51.1642292,
+                    longitude: 10.4541194
+                    }
+                    },
+
+                    {
+                    origin: { //Turkey
+                    latitude: 38.96375,
+                    longitude: 35.24332
+                    },
+                    destination: {//Germany
+                    latitude: 51.1642292,
+                    longitude: 10.4541194
+                    }
+                    },
+
+                    {
+                    origin: { //Serbia
+                    latitude: 44.01652,
+                    longitude: 21.00586
+                    },
+                    destination: {//Germany
+                    latitude: 51.1642292,
+                    longitude: 10.4541194
+                    }
+                    },
+
+                    {
+                    origin: { //Russia
+                    latitude: 61.52401,
+                    longitude: 105.31876
+                    },
+                    destination: {//Germany
+                    latitude: 51.1642292,
+                    longitude: 10.4541194
+                    }
+                    },
+
+                    {
+                    origin: { //China
+                    latitude: 35.86166,
+                    longitude: 104.19540
+                    },
+                    destination: {//USA
+                    latitude: 37.6,
+                    longitude: -95.665
+                    }
+                    },
+
+                    {
+                    origin: { //Mexico
+                    latitude: 23.63450,
+                    longitude: -102.55278
+                    },
+                    destination: {//USA
+                    latitude: 37.6,
+                    longitude: -95.665
+                    }
+                    },
+                    {
+                    origin: { //Colombia
+                    latitude: 4.57087,
+                    longitude: -74.29733
+                    },
+                    destination: {//USA
+                    latitude: 37.6,
+                    longitude: -95.665
+                    }
+                    },
+                    {
+                    origin: { //Haiti
+                    latitude: 18.97119,
+                    longitude: -72.28521
+                    },
+                    destination: {//USA
+                    latitude: 37.6,
+                    longitude: -95.665
+                    }
+                    },
+                    {
+                    origin: { //Turkey
+                    latitude: 38.96375,
+                    longitude: 35.24332
+                    },
+                    destination: {//France
+                    latitude: 46.71109,
+                    longitude: 1.7191036
+                    }
+                    },
+
+                    {
+                    origin: { //Congo
+                    latitude: -0.22802,
+                    longitude: 15.82766
+                    },
+                    destination: {//France
+                    latitude: 46.71109,
+                    longitude: 1.7191036
+                    }
+                    },
+
+                    {
+                    origin: { //Mauritania
+                    latitude: 21.0078589,
+                    longitude: -10.951734
+                    },
+                    destination: {//France
+                    latitude: 46.71109,
+                    longitude: 1.7191036
+                    }
+                    },
+
+                    {
+                    origin: { //Serbia
+                    latitude: 44.01652,
+                    longitude: 21.00586
+                    },
+                    destination: {//Sweden
+                    latitude:62.1983366,
+                    longitude: 17.5671981
+                    }
+                    },
+
+                    {
+                    origin: { //Iraq
+                    latitude: 33.22319,
+                    longitude: 43.67929
+                    },
+                    destination: {//Sweden
+                    latitude:62.1983366,
+                    longitude: 17.5671981
+                    }
+                    },
+                    {
+                    origin: { //Serbia
+                    latitude: 44.01652,
+                    longitude: 21.00586
+                    },
+                    destination: {//Austria
+                    latitude: 47.6964719,
+                    longitude: 13.3457347
+                    }
+                    },
+
+                    {
+                    origin: { //Iraq
+                    latitude: 33.22319,
+                    longitude: 43.67929
+                    },
+                    destination: {//Austria
+                    latitude: 47.6964719,
+                    longitude: 13.3457347
+                    }
+                    },
+                    {
+                    origin: { //Afghan
+                    latitude: 33.93911,
+                    longitude: 67.70995
+                    },
+                    destination: {//Austria
+                    latitude: 47.6964719,
+                    longitude: 13.3457347
+                    }
+                    },
+                    {
+                    origin: { //Turkey
+                    latitude: 38.96375,
+                    longitude: 35.24332
+                    },
+                    destination: {//Austria
+                    latitude: 47.6964719,
+                    longitude: 13.3457347
+                    }
+                    },
+                    {
+                    origin: { //India
+                    latitude: 20.59368,
+                    longitude: 78.96288
+                    },
+                    destination: {//Austria
+                    latitude: 47.6964719,
+                    longitude: 13.3457347
+                    }
+                    },
+
+                    {
+                    origin: { //Nigeria
+                    latitude: 9.08200,
+                    longitude: 8.67528
+                    },
+                    destination: {//Ireland
+                    latitude: 53.428665,
+                    longitude: -8.3320801
+                    }
+                    },
+
+                    {
+                    origin: { //Pakistan
+                    latitude: 30.37532,
+                    longitude: 69.34512
+                    },
+                    destination: {//Canada
+                    latitude: 56.0,
+                    longitude: -96.0
+                    }
+                    }
+
+]
+            },
+            {
+                "year" : "2003",
+                "description" : "Gulf War (Afghanistan, Iraq, Iran)</br>Civil War in Sudan",
+                "displacements" : [{
+origin: { //Turkey
+latitude: 38.96375,
+longitude: 35.24332
+               },
+            destination: {//France
+             latitude: 46.71109,
+             longitude: 1.7191036
+            }
+},
+
+{
+origin: { //China
+latitude: 35.86166,
+longitude: 104.19540
+               },
+            destination: {//France
+             latitude: 46.71109,
+             longitude: 1.7191036
+            }
+},
+{
+origin: { //Congo
+latitude: -0.22802,
+longitude: 15.82766
+               },
+            destination: {//France
+             latitude: 46.71109,
+             longitude: 1.7191036
+            }
+},
+{
+origin: { // Russia
+latitude: 61.52401,
+longitude: 105.31876
+               },
+            destination: {//France
+             latitude: 46.71109,
+             longitude: 1.7191036
+            }
+},
+{
+origin: { //Somalia
+latitude: 5.15215,
+            longitude: 46.19962
+               },
+            destination: {//UK
+             latitude: 55.3617609,
+             longitude: -3.4433238
+            }
+},
+
+{
+origin: { // Iraq
+            latitude: 33.22319,
+            longitude: 43.67929
+               },
+            destination: {//UK
+             latitude: 55.3617609,
+             longitude: -3.4433238
+            }
+},
+
+{
+origin: { //Iran
+latitude: 32.42791,
+longitude: 53.68805
+               },
+            destination: {//UK
+             latitude: 55.3617609,
+             longitude: -3.4433238
+            }
+},
+{
+origin: { //Turkey
+latitude: 38.96375,
+longitude: 35.24332
+               },
+            destination: {//UK
+             latitude: 55.3617609,
+             longitude: -3.4433238
+            }
+},
+
+{
+origin: { //Turkey
+latitude: 38.96375,
+longitude: 35.24332
+               },
+            destination: {//Germany
+             latitude: 51.1642292,
+             longitude: 10.4541194
+            }
+},
+
+{
+origin: { //Serbia
+latitude: 44.01652,
+longitude: 21.00586
+               },
+            destination: {//Germany
+             latitude: 51.1642292,
+             longitude: 10.4541194
+            }
+},
+
+{
+origin: { //Iraq
+latitude: 33.22319,
+longitude: 43.67929
+               },
+            destination: {//Germany
+             latitude: 51.1642292,
+             longitude: 10.4541194
+            }
+},
+
+{
+origin: { //Iraq
+latitude: 33.22319,
+longitude: 43.67929
+               },
+            destination: {//Netherlands
+             latitude: 52.2129919,
+             longitude: 5.2793703
+            }
+},
+
+{
+origin: { //Iran
+latitude: 32.42791,
+longitude: 53.68805
+               },
+            destination: {//Turkey
+ latitude: 38.96375,
+longitude: 35.24332
+            }
+}
+]
+            },
+            {
+                "year" : "2004",
+                "description" : "Crisis continues in Middle East (Afghanistan, Iraq, Iran)</br>Crisis in Colombia </br>Crisis in Serbia and Kosovo continues",
+                "displacements" : [
+                  {
+  origin: { //Turkey
+  latitude: 38.96375,
+  longitude: 35.24332
+  },
+              destination: {//France
+               latitude: 46.71109,
+               longitude: 1.7191036
+              }
+  },
+
+
+  {
+  origin: { //Serbia
+  latitude: 44.01652,
+  longitude: 21.00586
+                 },
+              destination: {//France
+               latitude: 46.71109,
+               longitude: 1.7191036
+              }
+  },
+  {
+  origin: { //Congo
+  latitude: -0.22802,
+  longitude: 15.82766
+                 },
+              destination: {//France
+               latitude: 46.71109,
+               longitude: 1.7191036
+              }
+  },
+  {
+  origin: { //Russia
+  latitude: 61.52401,
+  longitude: 105.31876
+                 },
+              destination: {//Poland
+               latitude: 51.91944,
+               longitude: 19.14514
+              }
+  },
+
+  {
+  origin: { //Serbia
+  latitude: 44.01652,
+  longitude: 21.00586
+                 },
+              destination: {//Sweden
+               latitude: 60.12816,
+               longitude: 18.64350
+              }
+  },
+
+  {
+  origin: { //Iran
+  latitude: 32.42791,
+  longitude: 53.68805
+                 },
+              destination: {//UK
+               latitude: 55.3617609,
+               longitude: -3.4433238
+              }
+  },
+
+  {
+  origin: { //Serbia
+  latitude: 44.01652,
+  longitude: 21.00586
+                 },
+              destination: {//Germany
+               latitude: 51.1642292,
+               longitude: 10.4541194
+              }
+  },
+
+  {
+  origin: { //Colombia
+  latitude: 4.57087,
+  longitude: -74.29733
+                 },
+              destination: {//Canada
+               latitude: 56.0,
+               longitude: -96.0
+              }
+  },
+
+  {
+  origin: { //Serbia
+  latitude: 44.01652,
+  longitude: 21.00586
+                 },
+              destination: {//Austria
+               latitude: 47.6964719,
+               longitude: 13.3457347
+              }
+  },
+
+  {
+  origin: { //Colombia
+  latitude: 4.57087,
+  longitude: -74.29733
+                 },
+              destination: {//USA
+               latitude: 37.6,
+               longitude: -95.665
+
+              }
+  }
+]
+            },
+            {
+                "year" : "2005",
+                "description" : "Crisis continues in Middle East (Afghanistan, Iraq)</br>Crisis in Burundi</br>Political crisis in Haiti",
+                "displacements" : [
+                  {
+  origin: { //Haiti
+  latitude: 18.97119,
+  longitude: -72.28521
+                 },
+              destination: {//France
+               latitude: 46.71109,
+               longitude: 1.7191036
+              }
+  },
+
+  {
+  origin: { //Serbia
+  latitude: 44.01652,
+  longitude: 21.00586
+                 },
+              destination: {//Germany
+  latitude: 51.1642292,
+               longitude: 10.4541194
+              }
+  },
+
+
+  {
+  origin: { //Serbia
+  latitude: 44.01652,
+  longitude: 21.00586
+                 },
+              destination: {//Austria
+               latitude: 47.6964719,
+               longitude: 13.3457347
+              }
+  },
+
+  {
+  origin: { //Serbia
+  latitude: 44.01652,
+  longitude: 21.00586
+                 },
+              destination: {//France
+               latitude: 46.71109,
+               longitude: 1.7191036
+              }
+  },
+
+
+  {
+  origin: { //Haiti
+  latitude: 18.97119,
+  longitude: -72.28521
+                 },
+              destination: {//USA
+              latitude: 37.6,
+               longitude: -95.665
+              }
+  },
+
+
+  {
+  origin: { //Iran
+  latitude: 32.42791,
+  longitude: 53.68805
+                 },
+              destination: {//UK
+               latitude: 55.3617609,
+               longitude: -3.4433238
+              }
+  },
+
+  {
+  origin: { //Congo
+  latitude: -0.22802,
+  longitude: 15.82766
+                 },
+              destination: {//France
+               latitude: 46.71109,
+               longitude: 1.7191036
+              }
+  },
+
+  {
+  origin: { //Serbia
+  latitude: 44.01652,
+  longitude: 21.00586
+                 },
+              destination: {//Sweden
+              latitude: 60.12816,
+              longitude: 18.64350
+              }
+  },
+  {
+  origin: { //Iraq
+  latitude: 33.22319,
+  longitude: 43.67929
+                 },
+              destination: {//Sweden
+               latitude: 60.12816,
+              longitude: 18.64350
+              }
+  },
+  {
+  origin: { //Somalia
+  latitude: 5.15215,
+  longitude: 46.19962
+                 },
+              destination: {//UK
+              latitude: 55.3617609,
+               longitude: -3.4433238
+              }
+  },
+
+  {
+  origin: { //Iran
+  latitude: 32.42791,
+  longitude: 53.68805
+                 },
+              destination: {//Turkey
+  latitude: 38.96375,
+  longitude: 35.24332
+  }
+  }
+]
+            },
+            {
+                "year" : "2006",
+                "description" : "Crisis continues in Middle East (Afghanistan, Iraq)</br>Crisis in Sudan",
+                "displacements" : [
+                  {
+  origin: { //Iraq
+  latitude: 33.22319,
+  longitude: 43.67929
+                 },
+              destination: {//Sweden
+               latitude: 60.12816,
+              longitude: 18.64350
+              }
+  },
+  {
+  origin: { //Russia
+  latitude: 61.52401,
+  longitude: 105.31876
+                 },
+              destination: {//Poland
+               latitude: 51.9189046,
+               longitude: 19.1343786
+              }
+  },
+
+  {
+  origin: { //Serbia
+  latitude: 44.01652,
+  longitude: 21.00586
+                 },
+              destination: {//Germany
+  latitude: 51.1642292,
+               longitude: 10.4541194
+              }
+  },
+  {
+  origin: { //Serbia
+  latitude: 44.01652,
+  longitude: 21.00586
+                 },
+              destination: {//France
+               latitude: 46.71109,
+               longitude: 1.7191036
+              }
+  },
+  {
+  origin: { //Haiti
+  latitude: 18.97119,
+  longitude: -72.28521
+                 },
+              destination: {//USA
+              latitude: 37.6,
+               longitude: -95.665
+              }
+  },
+
+
+  {
+  origin: { //Iraq
+  latitude: 33.22319,
+  longitude: 43.67929
+                 },
+              destination: {//Netherlands
+  latitude : 52.2129919,
+  longitude: 5.2793703
+              }
+  },
+
+  {
+  origin: { //Iran
+  latitude: 32.42791,
+  longitude: 53.68805
+                 },
+              destination: {//UK
+               latitude: 55.3617609,
+               longitude: -3.4433238
+              }
+  },
+
+
+  {
+  origin: { //Afghanistan
+  latitude: 33.93911,
+  longitude: 67.70995
+                 },
+              destination: {//UK
+               latitude: 55.3617609,
+               longitude: -3.4433238
+              }
+  },
+
+  {
+  origin: { //Afghanistan
+  latitude: 33.93911,
+  longitude: 67.70995
+                 },
+              destination: {//UK
+               latitude: 55.3617609,
+               longitude: -3.4433238
+              }
+  },
+
+  {
+  origin: { //Serbia
+  latitude: 44.01652,
+  longitude: 21.00586
+                 },
+              destination: {//Austria
+               latitude: 47.6964719,
+               longitude: 13.3457347
+              }
+  },
+
+  {
+  origin: { //Congo
+  latitude: -0.22802,
+  longitude: 15.82766
+                 },
+              destination: {//France
+               latitude: 46.71109,
+               longitude: 1.7191036
+              }
+  }
+]
+            },
+            {
+                "year" : "2007",
+                "description" : "Crisis continues in Middle East (Afghanistan, Iraq)</br>Crisis in Colombia",
+                "displacements" : [
+                  {
+    origin: { //Iraq
+    latitude: 33.22319,
+    longitude: 43.67929
+                   },
+                destination: {//Sweden
+               latitude: 60.12816,
+               longitude: 18.64350
+                }
+    },
+
+
+    {
+    origin: { //Pakistan
+    latitude: 30.37532,
+    longitude: 69.34512
+                   },
+                destination: {//Greece
+                 latitude: 39.07421,
+                 longitude: 21.82431
+                }
+    },
+
+    {
+    origin: { //Iraq
+    latitude: 33.22319,
+    longitude: 43.67929
+                   },
+                destination: {//Greece
+                 latitude: 39.07421,
+                 longitude: 21.82431
+                }
+    },
+
+    {
+    origin: { //Iraq
+    latitude: 33.22319,
+    longitude: 43.67929
+                   },
+                destination: {//Germany
+    latitude: 51.1642292,
+                 longitude: 10.4541194
+                }
+    },
+    {
+    origin: { //Iraq
+    latitude: 33.22319,
+    longitude: 43.67929
+                   },
+                destination: {//Turkey
+     latitude: 38.96375,
+    longitude: 35.24332
+     }
+    },
+
+    {
+    origin: { //Serbia
+    latitude: 44.01652,
+    longitude: 21.00586
+                   },
+                destination: {//France
+    latitude: 46.71109,
+                 longitude: 1.7191036
+                }
+    },
+
+    {
+    origin: { //Afghanistan
+    latitude: 33.93911,
+    longitude: 67.70995
+                   },
+                destination: {//UK
+                 latitude: 55.3617609,
+                 longitude: -3.4433238
+                }
+    },
+
+    {
+    origin: { //Iran
+    latitude: 32.42791,
+    longitude: 53.68805
+                   },
+                destination: {//UK
+                 latitude: 55.3617609,
+                 longitude: -3.4433238
+                }
+    },
+
+    {
+    origin: { //Colombia
+    latitude: 4.57087,
+    longitude: -74.29733
+                   },
+                destination: {//Canada
+                 latitude: 56.0,
+                 longitude: -96.0
+                }
+    },
+
+    {
+    origin: { //Serbia
+    latitude: 44.01652,
+    longitude: 21.00586
+                   },
+                destination: {//Germany
+                 latitude: 51.1642292,
+                 longitude: 10.4541194
+                }
+    },
+    {
+    origin: { //Congo
+    latitude: -0.22802,
+    longitude: 15.82766
+                   },
+                destination: {//France
+                 latitude: 46.71109,
+                 longitude: 1.7191036
+                }
+    }
+]
+            },
+            {
+                "year" : "2008",
+                "description" : "Crisis continues in Middle East (Afghanistan, Iraq)</br>Crisis in Somalia",
+                "displacements" : [
+                  {
+  origin: { //Iraq
+  latitude: 33.22319,
+  longitude: 43.67929
+                 },
+              destination: {//Turkey
+  latitude: 38.96375,
+  longitude: 35.24332
+  }
+  },
+
+  {
+  origin: { //Iraq
+  latitude: 33.22319,
+  longitude: 43.67929
+                 },
+              destination: {//Germany
+               latitude: 51.1642292,
+               longitude: 10.4541194
+              }
+  },
+
+  {
+  origin: { //Mexico
+  latitude: 23.63450,
+  longitude: -102.55278
+                 },
+             destination: {//Canada
+               latitude: 56.0,
+               longitude: -96.0
+              }
+  },
+
+  {
+  origin: { //Somalia
+  latitude: 5.15215,
+  longitude: 46.19962
+                 },
+              destination: {//Italy
+               latitude: 41.87194,
+               longitude: 12.56738
+              }
+  },
+
+  {
+  origin: { //Somalia
+  latitude: 5.15215,
+  longitude: 46.19962
+   },
+              destination: {//Netherlands
+               latitude: 52.2129919,
+               longitude: 5.2793703
+              }
+  },
+
+  {
+  origin: { //Iraq
+  latitude: 33.22319,
+  longitude: 43.67929
+                 },
+              destination: {//Sweden
+              latitude: 60.12816,
+             longitude: 18.64350
+              }
+  },
+
+  {
+  origin: { //Haiti
+  latitude: 18.97119,
+  longitude: -72.28521
+                 },
+              destination: {//Canada
+               latitude: 56.13037,
+               longitude: -106.34677
+              }
+  },
+
+  {
+  origin: { //Iraq
+  latitude: 33.22319,
+  longitude: 43.67929
+                 },
+              destination: {//Norway
+               latitude: 60.47202,
+               longitude: 8.46895
+              }
+  },
+
+  {
+  origin: { //Afghan
+  latitude: 33.93911,
+  longitude: 67.70995
+                 },
+              destination: {//UK
+               latitude: 55.3617609,
+               longitude: -3.4433238
+              }
+  },
+
+  {
+  origin: { //Serbia
+  latitude: 44.01652,
+  longitude: 21.00586
+                 },
+              destination: {//France
+  latitude: 46.71109,
+               longitude: 1.7191036
+              }
+  },
+
+
+  {
+  origin: { //Colombia
+  latitude: 4.57087,
+  longitude: -74.29733
+                 },
+              destination: {//Canada
+               latitude: 56.13037,
+               longitude: -106.34677
+  }
+  }
+]
+            },
+            {
+                "year" : "2009",
+                "description" : "Crisis continues in Middle East (Afghanistan, Iraq)</br>Crisis in Somalia</br>Crisis in Haiti",
+                "displacements" : [
+                  {   origin: {//mexico
+     latitude:23.634501,
+     longitude:-102.55278
+ },
+ destination: {//canada
+      latitude:56.13036,
+      longitude: -106.34677
+ } },
+{   origin: {//afghanistan
+     latitude:33.93911,
+     longitude: 67.70995
+ },
+ destination: {//germany
+      latitude:51.16569,
+      longitude:10.45153
+ } },
+   {   origin: {//iraq
+     latitude:33.22319 ,
+     longitude: 43.67929
+ },
+ destination: {//germany
+      latitude:51.16569,
+      longitude:10.45153
+ } },
+   {   origin: {//somalia
+     latitude:5.15215 ,
+     longitude: 46.19962
+ },
+ destination: {//netherlands
+     latitude:52.13263,
+      longitude:5.29127
+ } },
+   {   origin: {// afghanistan
+     latitude:33.93911 ,
+     longitude: 67.70995
+ },
+ destination: {//norway
+     latitude:60.47202 ,
+      longitude:8.46895
+ } },
+    {   origin: {// russia
+     latitude:61.52401,
+     longitude: 105.31876
+ },
+ destination: {//poland
+     latitude:51.91944,
+      longitude:19.14514
+ } },
+    {   origin: {// georgia
+     latitude: 42.31541 ,
+     longitude:43.35689
+ },
+ destination: {//poland
+     latitude:51.91944,
+      longitude:19.14514
+ } },
+
+   {   origin: {// iraq
+     latitude: 33.22319,
+     longitude:43.67929
+ },
+ destination: {//sweeden
+     latitude:60.12816,
+      longitude: 18.64350
+ } },
+   {   origin: {// somalia
+     latitude:5.15215,
+     longitude:46.19962
+ },
+ destination: {//sweeden
+     latitude:60.12816,
+      longitude: 18.64350
+ } },
+   {   origin: {// iraq
+     latitude:33.22319,
+     longitude: 43.67929
+ },
+ destination: {// turkey
+     latitude: 38.96375 ,
+      longitude: 35.24332
+ } },
+  {   origin: {// afghanistan
+     latitude: 33.93911,
+     longitude:67.70995
+ },
+ destination: {// britain ireland
+     latitude: 55.37805  ,
+      longitude: -3.43597
+ } },
+  {   origin: {// zimbabwe
+     latitude:-19.01544,
+     longitude: 29.15486
+ },
+ destination: {// britain ireland
+     latitude: 55.37805  ,
+      longitude: -3.43597
+ } },
+ {   origin: {// china
+     latitude:35.86166 ,
+     longitude: 104.19540
+ },
+ destination: {// USA
+     latitude: 37.09024 ,
+      longitude: -95.71289
+ } }
+]
+            },
+            {
+                "year" : "2010",
+                "description" : "Crisis continues in Middle East (Afghanistan, Iraq)</br>Crisis in Somalia</br>Crisis in Haiti",
+                "displacements" : [
+                  {
+                  origin: { // afghanistan
+                      latitude: 33.93911,
+                      longitude: 67.70995
+                  },
+                  destination: {// australia
+                      latitude:-25.27440,
+                      longitude: 133.77514
+                  }
+                  },
+                   {
+                  origin: { // serbia
+                      latitude: 44.01652 ,
+                      longitude: 21.00586
+                  },
+                  destination: {// belgium
+                      latitude:50.50389,
+                      longitude: 4.46994
+                  }
+                  },
+                   { origin: { // russia
+                      latitude: 61.52401,
+                      longitude: 105.31876
+                  },
+                  destination: {// france
+                      latitude:46.22764,
+                      longitude:  2.21375
+                  }
+                  },
+                   { origin: { // serbia
+                      latitude: 44.01652,
+                      longitude: 21.00586
+                  },
+                  destination: {// france
+                      latitude:46.22764,
+                      longitude:  2.21375
+                  }
+                  },
+                  { origin: { // afghanistan
+                      latitude: 33.93911,
+                      longitude: 67.70995
+                  },
+                  destination: {// germany
+                      latitude:51.16569 ,
+                      longitude: 10.45153
+                  }
+                  },
+                  { origin: { // soumalia
+                      latitude: 5.15215,
+                      longitude: 46.19962
+                  },
+                  destination: {// germany
+                      latitude:51.16569 ,
+                      longitude: 10.45153
+                  }
+                  },
+
+                     { origin: { // iraq
+                      latitude: 33.22319,
+                      longitude: 43.67929
+                  },
+                  destination: {// germany
+                      latitude:51.16569 ,
+                      longitude: 10.45153
+                  }
+                  },
+                     { origin: { // serbia
+                      latitude: 44.01652,
+                      longitude: 21.00586
+                  },
+                  destination: {// germany
+                      latitude:51.16569 ,
+                      longitude: 10.45153
+                  }
+                  },
+                      { origin: { // somalia
+                      latitude: 5.15215,
+                      longitude: 46.19962
+                  },
+                  destination: {// netherlands
+                       latitude:52.13263,
+                       longitude:5.29127
+                  }
+                  },
+                    { origin: { // russia
+                      latitude: 61.52401 ,
+                      longitude:105.31876
+                  },
+                  destination: {//poland
+                      latitude:51.91944,
+                       longitude:19.14514
+                  }
+                  },
+                                    { origin: { // afghanistan
+                      latitude: 61.52401 ,
+                      longitude:105.31876
+                  },
+                  destination: {// sweeden
+                      latitude:60.12816,
+                       longitude: 18.64350
+                  }
+                  },
+                      { origin: { // serbia
+                      latitude:44.01652,
+                      longitude: 21.00586
+                  },
+                  destination: {// sweeden
+                      latitude:60.12816,
+                       longitude: 18.64350
+                  }
+                  },
+                                 { origin: { // somalia
+                       latitude:5.15215,
+                      longitude:46.19962
+                  },
+                  destination: {// sweeden
+                      latitude:60.12816,
+                       longitude: 18.64350
+                  }  },
+                                   { origin: { //china
+                      latitude:  35.86166 ,
+                      longitude: 104.19540
+                  },
+                  destination: {// USA
+                            latitude: 37.09024 ,
+                       longitude: -95.71289
+                  }  }
+]
+            },
+            {
+                "year" : "2011",
+                "description" : "Crisis continues in Middle East (Afghanistan, Iraq)</br>Start of the Syrian Civil War",
+                "displacements" : [
+                  {    origin: { // afghanistan
+                      latitude: 33.93911,
+                      longitude:67.70995
+                  },
+                  destination: {//austria
+                      latitude:47.51623 ,
+                      longitude: 14.55007
+                  } },
+                                       {    origin: { // hungary
+                      latitude:47.16249,
+                      longitude:19.50330
+                  },
+                  destination: {//canada
+                      latitude:56.13036,
+                       longitude: -106.34677
+                    } },
+                     {    origin: { // russia
+                         latitude: 61.52401 ,
+                      longitude: 105.31876
+                  },
+                  destination: {//france
+                       latitude:46.22764,
+                      longitude:  2.21375
+                    } },
+                          {    origin: { // afghanistan
+                      latitude: 33.93911,
+                      longitude:67.70995
+                  },
+                  destination: {//germany
+                      latitude:51.16569 ,
+                      longitude: 10.45153
+                    } },
+                {    origin: { // serbia
+                      latitude:44.01652,
+                      longitude: 21.00586
+                  },
+                  destination: {//germany
+                      latitude:51.16569 ,
+                      longitude: 10.45153
+                    } },
+                  {    origin: { // iraq
+                       latitude: 33.22319 ,
+                      longitude:43.67929
+                  },
+                  destination: {//germany
+                      latitude:51.16569 ,
+                      longitude: 10.45153
+                    } },
+                                   {    origin: { // pakistan
+                      latitude: 30.37532,
+                      longitude:69.34512
+                  },
+                  destination: {//germany
+                      latitude:51.16569 ,
+                      longitude: 10.45153
+                    } },
+                   {    origin: { // syria
+                      latitude:34.80207 ,
+                      longitude:38.99681
+                  },
+                  destination: {//germany
+                      latitude:51.16569 ,
+                      longitude: 10.45153
+                    } },
+                                       {    origin: { // nigeria
+                      latitude: 9.08200,
+                      longitude:8.67528
+                  },
+                  destination: {// italy
+                      latitude:41.87194,
+                       longitude:12.56738
+                    } },
+                    {    origin: { // tunisia
+                     latitude: 36.80649,
+                     longitude: 10.1815
+                  },
+                  destination: {// italy
+                      latitude:41.87194,
+                       longitude:12.56738
+                    } },
+
+                                  {   origin: {// iraq
+                      latitude:33.22319,
+                      longitude: 43.67929
+                  },
+                  destination: {// turkey
+                      latitude: 38.96375 ,
+                       longitude: 35.24332
+                  } },
+                                  { origin: { //pakistan
+                         latitude: 30.37532,
+                      longitude:69.34512
+                  },
+                  destination: {// britain
+                      latitude: 55.37805  ,
+                       longitude: -3.43597
+                  }  },
+                                                 { origin: { //china
+                      latitude:  35.86166 ,
+                      longitude: 104.19540
+                  },
+                  destination: {// USA
+                            latitude: 37.09024 ,
+                       longitude: -95.71289
+                  }  },
+                                {   origin: {// mexico
+                      latitude: 23.63450,
+                      longitude: -102.55278
+                  },
+                  destination: {// USA
+                      latitude: 37.09024 ,
+                       longitude: -95.71289
+                  } }
+
+                ]
+            },
+            {
+                "year" : "2012",
+                "description" : "Crisis continues in Middle East (Afghanistan, Iraq)</br>Start of the Syrian Civil War",
+                "displacements" : [
+                  {
+                     origin: { // afghanistan
+                         latitude: 33.93911,
+                         longitude: 67.70995
+                     },
+                     destination: {// australia
+                         latitude:-25.27440,
+                         longitude: 133.77514
+                     }
+                     },
+                {
+                     origin: { // afghanistan
+                         latitude: 33.93911,
+                         longitude: 67.70995
+                     },
+                     destination: {// austria
+                         latitude:47.51623 ,
+                         longitude: 14.55007
+                     }
+                     },
+                                      {   origin: {//russia
+                         latitude: 61.52401 ,
+                         longitude:105.31876
+                     },
+                     destination: {//france
+                          latitude:46.22763,
+                          longitude: 2.21374
+                     } },
+                   {   origin: {//afghanistan
+                         latitude:33.93911,
+                         longitude: 67.70995
+                     },
+                     destination: {//germany
+                          latitude:51.16569,
+                          longitude:10.45153
+                     } },
+                       {   origin: {//iraq
+                         latitude:33.22319 ,
+                         longitude: 43.67929
+                     },
+                     destination: {//germany
+                          latitude:51.16569,
+                          longitude:10.45153
+                     } },
+                       {   origin: {//serbia
+                         latitude:44.01652,
+                         longitude: 21.00586
+                     },
+                     destination: {//germany
+                          latitude:51.16569,
+                          longitude:10.45153
+                     } },
+                       {   origin: {//syria
+                         latitude:34.80207 ,
+                         longitude: 38.99681
+                     },
+                     destination: {//germany
+                          latitude:51.16569,
+                          longitude:10.45153
+                     } },
+                                        {   origin: {// russia
+                         latitude:61.52401,
+                         longitude: 105.31876
+                     },
+                     destination: {//poland
+                         latitude:51.91944,
+                          longitude:19.14514
+                     } },
+                 {   origin: {// afghanistan
+                         latitude:33.93911 ,
+                         longitude:67.70995
+                     },
+                     destination: {//sweeden
+                         latitude:60.12816,
+                          longitude: 18.64350
+                     } },
+                       {   origin: {// syria
+                         latitude:34.80207 ,
+                         longitude: 38.99681
+                     },
+                     destination: {//sweeden
+                         latitude:60.12816,
+                          longitude: 18.64350,
+                     } },
+                                     {   origin: {// soumalia
+                         latitude:5.15215,
+                         longitude:46.19962
+                     },
+                     destination: {//sweeden
+                         latitude:60.12816,
+                          longitude: 18.64350
+                     } },
+                            { origin: { // afganistan
+                          latitude: 33.93911,
+                         longitude:67.70995
+                     },
+                     destination: {// turkey
+                         latitude: 38.96375,
+                         longitude:35.24332
+                     }  },
+                    { origin: { //china
+                         latitude:  35.86166 ,
+                         longitude: 104.19540
+                     },
+                     destination: {// USA
+                               latitude: 37.09024 ,
+                          longitude: -95.71289
+                     }  },
+                                   {   origin: {// mexico
+                         latitude: 23.63450,
+                         longitude: -102.55278
+                     },
+                     destination: {// USA
+                         latitude: 37.09024,
+                          longitude: -95.71289
+                     } }
+]
+            },
+            {
+                "year" : "2013",
+                "description" : "Crisis continues in Middle East (Afghanistan, Iraq)</br>Syrian crisis intensifies",
+                "displacements" : [
+                                  {   origin: {//syria
+                   latitude:34.80207 ,
+                   longitude:38.99681
+                },
+                destination: {//bulgaria
+                    latitude:42.73388 ,
+                   longitude: 25.48583
+                } },
+                {   origin: {//afghanistan
+                   latitude:33.93911,
+                   longitude: 67.70995
+                },
+                destination: {//germany
+                    latitude:51.16569,
+                    longitude:10.45153
+                } },
+                 {   origin: {//iraq
+                   latitude:33.22319 ,
+                   longitude: 43.67929
+                },
+                destination: {//germany
+                    latitude:51.16569,
+                    longitude:10.45153
+                } },
+                 {   origin: {//syria
+                   latitude:34.80207 ,
+                   longitude: 38.99681
+                },
+                destination: {//germany
+                    latitude:51.16569,
+                    longitude:10.45153
+                } },
+
+                                {   origin: {//russia
+                   latitude: 61.52401 ,
+                   longitude:105.31876
+                },
+                destination: {//germany
+                    latitude:51.16569,
+                    longitude:10.45153
+                } },
+                                     {   origin: {//serbia
+                   latitude: 44.01652,
+                   longitude: 21.00586
+                },
+                destination: {//germany
+                    latitude:51.16569,
+                    longitude:10.45153
+                } },
+                {   origin: {//macedonia
+                   latitude: 41.60864,
+                   longitude: 21.74527
+                },
+                destination: {//germany
+                    latitude:51.16569,
+                    longitude:10.45153
+                } },
+                {   origin: {//serbia
+                latitude:44.01652,
+                   longitude: 21.00586
+                },
+                destination: {//hungary
+                    latitude:47.16249  ,
+                    longitude: 19.50330
+                } },
+                 {   origin: {// syria
+                   latitude: 34.80207,
+                   longitude: 38.99681
+                },
+                destination: {//sweeden
+                   latitude: 60.12816,
+                    longitude: 18.64350
+                } },
+                { origin: { // iraq
+                   latitude: 33.22319 ,
+                   longitude:43.67929
+                },
+                destination: {// turkey
+                   latitude: 38.96375,
+                   longitude:35.24332
+                }  },
+                      { origin: { // afganistan
+                    latitude: 33.93911,
+                   longitude:67.70995
+                },
+                destination: {// turkey
+                   latitude: 38.96375,
+                   longitude:35.24332
+                }  },
+                { origin: { //china
+                   latitude:  35.86166 ,
+                   longitude: 104.19540
+                },
+                destination: {// USA
+                         latitude: 37.09024 ,
+                    longitude: -95.71289
+                }  }
+
+                ]
+            },
+            {
+                "year" : "2014",
+                "description" : "Crisis continues in Middle East (Afghanistan, Iraq)</br>Syrian crisis intensifies",
+                "displacements" : [
+                  {  origin: { // syria
+                      latitude: 34.80207,
+                      longitude: 38.99681
+                  },
+                  destination: {// austria
+                      latitude:47.51623 ,
+                      longitude: 14.55007
+                  } },
+                {   origin: {//afghanistan
+                      latitude:33.93911,
+                      longitude: 67.70995
+                  },
+                  destination: {//germany
+                       latitude:51.16569,
+                       longitude:10.45153
+                  } },
+                    {   origin: {//syria
+                      latitude:34.80207 ,
+                      longitude: 38.99681
+                  },
+                  destination: {//germany
+                       latitude:51.16569,
+                       longitude:10.45153
+                  } },
+                                   {   origin: {//serbia
+                      latitude: 44.01652,
+                       longitude: 21.00586
+                  },
+                  destination: {//germany
+                       latitude:51.16569,
+                       longitude:10.45153
+                  } },
+                                        {   origin: {//eritrea
+                      latitude: 15.17938,
+                      longitude: 39.78233
+                  },
+                  destination: {//germany
+                       latitude:51.16569,
+                       longitude:10.45153
+                  } },
+       {   origin: {//afghanistan
+                      latitude:33.93911,
+                      longitude:  67.70995
+                  },
+                  destination: {//hungary
+                       latitude:47.16249  ,
+                       longitude: 19.50330
+                  } },
+       {   origin: {//serbia
+                      latitude: 44.01652,
+                       longitude: 21.00586
+                  },
+                  destination: {//hungary
+                       latitude:47.16249  ,
+                       longitude: 19.50330
+                  } },
+       {   origin: {//syria
+                      latitude:34.80207 ,
+                      longitude:38.99681
+                  },
+                  destination: {//hungary
+                       latitude:47.16249  ,
+                       longitude: 19.50330
+                  } },
+                   {   origin: {//nigeria
+                      latitude: 9.08200,
+                      longitude:8.67528
+                  },
+                  destination: {//italy
+                      latitude:41.87194,
+                       longitude:12.56738
+                  } },
+                  {   origin: {//syria
+                      latitude:34.80207,
+                      longitude: 38.99681
+                  },
+                  destination: {//netherlands
+                      latitude:52.13263,
+                       longitude:5.29127
+                  } },
+                  {   origin: {// syria
+                      latitude:  34.80207 ,
+                      longitude: 38.99681
+                  },
+                  destination: {//serbia
+                      latitude: 44.01652,
+                       longitude: 21.00586
+                  } },
+                    {   origin: {// syria
+                      latitude: 34.80207,
+                      longitude: 38.99681
+                  },
+                  destination: {//sweeden
+                      latitude: 60.12816,
+                       longitude: 18.64350
+                  } },
+                                  {   origin: {// eritrea
+                      latitude: 15.17938,
+                      longitude: 39.78233
+                  },
+                  destination: {//sweeden
+                      latitude:60.12816,
+                       longitude: 18.64350
+                  } },
+
+                         { origin: { // afganistan
+                       latitude: 33.93911,
+                      longitude:67.70995
+                  },
+                  destination: {// turkey
+                      latitude: 38.96375,
+                      longitude:35.24332
+                  }  },
+                         { origin: { // iran
+                      latitude: 32.42791,
+                      longitude: 53.68805
+                  },
+                  destination: {// turkey
+                      latitude: 38.96375,
+                      longitude:35.24332
+                  }  },
+                         { origin: { // iraq
+                      latitude: 33.22319 ,
+                      longitude: 43.67929
+                   },
+                  destination: {// turkey
+                      latitude: 38.96375,
+                      longitude:35.24332
+                  }  },
+                         { origin: { // syria
+                      latitude: 34.80207 ,
+                      longitude: 38.99681
+                   },
+                  destination: {// turkey
+                      latitude: 38.96375,
+                      longitude:35.24332
+                  }  },
+                 { origin: { //china
+                      latitude:  35.86166 ,
+                      longitude: 104.19540
+                  },
+                  destination: {// USA
+                            latitude: 37.09024 ,
+                       longitude: -95.71289
+                  }  }
+                ]
+            },
+            {
+                "year" : "2015",
+                "description" : "Crisis continues in Middle East (Afghanistan, Iraq)</br>Syrian crisis peak",
+                "displacements" : [
+                  {  origin: { // iraq
+                   latitude: 33.22319 ,
+                   longitude: 43.67929
+               },
+               destination: {// austria
+                   latitude:47.51623 ,
+                   longitude: 14.55007
+               } },
+
+               {  origin: { // syria
+                   latitude: 34.80207,
+                   longitude: 38.99681
+               },
+               destination: {// austria
+                   latitude:47.51623 ,
+                   longitude: 14.55007
+               } },
+                {   origin: {// afghanestan
+                   latitude: 33.93911,
+                   longitude:67.70995
+               },
+               destination: {//austria
+                   latitude: 47.51623 ,
+                   longitude: 14.55007
+               } },
+                            {   origin: {//afghanistan
+                   latitude:33.93911,
+                   longitude: 67.70995
+               },
+               destination: {//germany
+                    latitude:51.16569,
+                    longitude:10.45153
+               } },
+             {   origin: {//albania
+                   latitude: 41.15333,
+                   longitude: 20.16833
+               },
+               destination: {//germany
+                    latitude:51.16569,
+                    longitude:10.45153
+               } },
+
+                 {   origin: {//iraq
+                   latitude:33.22319 ,
+                   longitude: 43.67929
+               },
+               destination: {//germany
+                    latitude:51.16569,
+                    longitude:10.45153
+               } },
+                 {   origin: {//syria
+                   latitude:34.80207 ,
+                   longitude: 38.99681
+               },
+               destination: {//germany
+                    latitude:51.16569,
+                    longitude:10.45153
+               } },
+                 {   origin: {//serbia
+                   latitude: 44.01652,
+                   longitude: 21.00586
+               },
+               destination: {//germany
+                    latitude:51.16569,
+                    longitude:10.45153
+               } },
+        {   origin: {//afghanistan
+                   latitude:33.93911,
+                   longitude:  67.70995
+               },
+               destination: {//hungary
+                    latitude:47.16249  ,
+                    longitude: 19.50330
+               } },
+               {   origin: {//syria
+                   latitude:34.80207,
+                   longitude: 38.99681
+               },
+               destination: {//netherlands
+                   latitude:52.13263,
+                    longitude:5.29127
+               } },
+                 {   origin: {// afghanistan
+                   latitude:33.93911 ,
+                   longitude:67.70995
+               },
+               destination: {//sweeden
+                   latitude:60.12816,
+                    longitude: 18.64350
+               } },
+                 {   origin: {// syria
+                   latitude:34.80207 ,
+                   longitude: 38.99681
+               },
+               destination: {//sweeden
+                   latitude:60.12816,
+                    longitude: 18.64350
+               } }
+]
+            },
+            {
+                "year" : "2016",
+                "description" : "Crisis continues in Middle East (Afghanistan, Iraq)</br>Syrian crisis peak",
+                "displacements" : [
+                  {  origin: { // syria
+                    latitude: 34.80207,
+                    longitude: 38.99681
+                },
+                destination: {// austria
+                    latitude:47.51623 ,
+                    longitude: 14.55007
+                } },
+                 {   origin: {// afghanestan
+                    latitude: 33.93911,
+                    longitude:67.70995
+                },
+                destination: {//austria
+                    latitude: 47.51623 ,
+                    longitude: 14.55007
+                } },
+
+                 {   origin: {//afganistan
+                    latitude: 33.93911,
+                    longitude: 67.70995
+                },
+                destination: {//bulgaria
+                     latitude:42.73388 ,
+                    longitude: 25.48583
+                } },
+              {   origin: {//afghanistan
+                    latitude:33.93911,
+                    longitude: 67.70995
+                },
+                destination: {//germany
+                     latitude:51.16569,
+                     longitude:10.45153
+                } },
+
+                  {   origin: {//iraq
+                    latitude:33.22319 ,
+                    longitude: 43.67929
+                },
+                destination: {//germany
+                     latitude:51.16569,
+                     longitude:10.45153
+                } },
+                  {   origin: {//syria
+                    latitude:34.80207 ,
+                    longitude: 38.99681
+                },
+                destination: {//germany
+                     latitude:51.16569,
+                     longitude:10.45153
+                } },
+                                      {   origin: {//eritrea
+                    latitude: 15.17938,
+                    longitude: 39.78233
+                },
+                destination: {//germany
+                     latitude:51.16569,
+                     longitude:10.45153
+                } },
+                                     {   origin: {//iran
+                    latitude: 32.42791,
+                    longitude: 53.68805
+                },
+                destination: {//germany
+                     latitude:51.16569,
+                     longitude:10.45153
+                } },
+
+            {   origin: {//afghanistan
+                    latitude:33.93911,
+                    longitude:  67.70995
+                },
+                destination: {//hungary
+                     latitude:47.16249  ,
+                     longitude: 19.50330
+                } },
+                 {   origin: {//nigeria
+                    latitude: 9.08200,
+                    longitude:8.67528
+                },
+                destination: {//italy
+                    latitude:41.87194,
+                     longitude:12.56738
+                } },
+                       { origin: { // afganistan
+                     latitude: 33.93911,
+                    longitude:67.70995
+                },
+                destination: {// turkey
+                    latitude: 38.96375,
+                    longitude:35.24332
+                }  },
+                       { origin: { // iraq
+                    latitude: 33.22319 ,
+                    longitude: 43.67929
+                 },
+                destination: {// turkey
+                    latitude: 38.96375,
+                    longitude:35.24332
+                }  },
+
+                     { origin: { //al salvador
+                    latitude: 13.79419,
+                    longitude: -88.89653
+                },
+                destination: {// USA
+                          latitude: 37.09024,
+                     longitude: -95.71289
+                }  },
+                { origin: { //venezuela
+                    latitude: 6.42375,
+                    longitude: -66.58973
+                },
+                destination: {// USA
+                          latitude: 37.09024,
+                     longitude: -95.71289
+                }  }
+]
+            }
+            ]
+
+        var tip = d3.tip()
+        .attr('class', 'year-tooltip')
+        .offset([10, 20])
+        .direction('e')
+        .html(function(d) {
+            return d.description;
+        })
+
+        var svgTimeline = d3.select("#timeline").append("svg")
+            .attr("width", "100%")
+            .attr("height", "100%");
+
+        svgTimeline.call(tip);
+
+        var playbutton = svgTimeline.append("g").attr("id","play-button");
+        var launch;
+        var running = true;
+
+        playbutton
+        .append("circle")
+        .attr("stroke", "red")
+        .attr("stroke-width", 2)
+        .attr("cx","90")
+        .attr("cy","30")
+        .attr("r","22")
+        .attr("fill", "black")
+
+        playbutton
+        .append("path")
+        .attr("fill", "white")
+        .attr("stroke", "white")
+        .attr("stroke-width", 2)
+        .attr("id","play-icon")
+        .attr("d","M11,10 L18,13.74 18,22.28 11,26 M18,13.74 L26,18 26,18 18,22.28")
+        .attr("transform",  "translate(73,12)")
+
+        playbutton
+        .append("path")
+        .attr("fill", "white")
+        .attr("stroke", "white")
+        .attr("stroke-width", 2)
+        .attr("id","pause-icon")
+        .attr("d","M11,10 L17,10 17,26 11,26 M20,10 L26,10 26,26 20,26")
+        .attr("transform","translate(72,11)")
+        .style("display","none")
+
+        playbutton
+        .on("click", function(){
+
+            if(running){
+                document.getElementById("pause-icon").style.display = "none";
+                document.getElementById("play-icon").style.display = "inline";
+                clearInterval(launch);
+            } else{
+                document.getElementById("pause-icon").style.display = "inline";
+                document.getElementById("play-icon").style.display = "none";
+                launchAnimation();
+            }
+
+            running = !running;
+
+        })
+
+
+        function launchAnimation(){
+            var initialYear = 1999;
+            var lastYear = 2016;
+
+            var actualYear = initialYear;
+
+            launch = setInterval(function(){
+                if(actualYear <= lastYear){
+
+                    var actualYearId = '#year-' + actualYear;
+
+                    d3.select(actualYearId).each( function(d, i){
+                        worldMap.arc( d.displacements, {strokeWidth: 2, animationSpeed: 2500});
+                    });
+
+                    d3.selectAll(".year").selectAll("rect")
+                    .classed("active-year", false);
+
+
+                    d3.select(actualYearId).select("rect").attr("class", "active-year");
+
+                    actualYear++;
+                } else {
+                    clearInterval(launch);
+                }
+            }, 3000);
+        }
+
+        var yearsRange = svgTimeline.selectAll( ".year" )
+            .data( data )
+            .enter()
+            .append("g")
+            .attr("class", "year")
+            .attr("id", function(d) {
+               return "year-" + d.year;
+            })
+            .on("click", function(d) {
+
+                worldMap.arc( d.displacements, {strokeWidth: 2, animationSpeed: 2500});
+
+                //Stop play
+                clearInterval(launch);
+
+                //reset play button
+                document.getElementById("pause-icon").style.display = "none";
+                document.getElementById("play-icon").style.display = "inline";
+
+                d3.selectAll(".year").selectAll("rect")
+                .classed("active-year", false);
+
+                d3.select(this).select("rect").attr("class", "active-year");
+
+            });
+
+            yearsRange
+            .append("rect")
+            .attr( "x", 5)
+            .attr( "y", function(d, i){
+                return i*35 + 10;
+            })
+            .attr( "width", 40)
+            .attr( "height", 30)
+            .attr("rx", 10)
+            .attr("ry", 10)
+            .attr("stroke", "rgb(207,26,60)")
+            .attr("stroke-width", 2)
+            .attr( "fill", "rgb(19,26,30)");
+
+            yearsRange
+            .append("text")
+            .attr("x", 10)
+            .attr("y",  function(d, i){
+                return i*35 + 30;
+            })
+            .text( function (d) { return d.year; })
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "14px")
+            .attr("fill", "white")
+            .on('mouseover', tip.show)
+            .on('mouseout', tip.hide);
+
+        var worldMap = new Datamap({
+            scope: 'world',
+            width: 1000,
+            height: 600,
+            element: document.getElementById('chart'),
+            projection: 'mercator',
+            fills: {
+                defaultFill: 'rgb(19,26,30)'
+            },
+            geographyConfig: {
+                borderWidth: 2,
+                borderColor: '#28303A',
+                highlightFillColor: 'rgba(0,0,0,1)',
+                highlightBorderColor: 'rgba(0,0,0, 1)',
+                highlightBorderWidth: 2,
+                popupOnHover: true,
+            }
+        });
+
+        var trans = d3.select("#fo").selectAll("img")
+                    .style("opacity","0")
+                    .transition()
+                    .style("opacity","1")
+                    .duration(function(d, i){ return 1000 + 300*i});
+
+
+        $(document).on('scroll', function(){
+            if (($(document).scrollTop()) > 950  ){
+              var trans = d3.select("#fo").selectAll("img")
+                          .style("opacity","0")
+                          .transition()
+                          .style("opacity","1")
+                          .duration(function(d, i){ return 1000 + 300*i});
+              }
+        }) ;
+
+</script>
